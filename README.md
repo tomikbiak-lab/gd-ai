@@ -1,5 +1,7 @@
 # GD AI
 
+[![Python checks](https://github.com/tomikbiak-lab/gd-ai/actions/workflows/python-checks.yml/badge.svg)](https://github.com/tomikbiak-lab/gd-ai/actions/workflows/python-checks.yml)
+
 An experimental agent that learns Geometry Dash by trial and error.
 A **C++ Geode mod** observes the level and applies inputs; a **Python / PyTorch
 PPO brain** learns when to press and release. The project includes a standalone
@@ -56,6 +58,9 @@ py -3.12 -m venv .venv
 The integration check needs at least three completed training rounds. On a slow
 machine, increase `60` to `120`. Tests use temporary brain folders and do not
 need your trained model. CPU training is the supported default; a GPU is not required.
+
+See [the validation record](docs/VALIDATION.md) for the measured checks, build
+environment and limits of the current verification.
 
 ## Build and install the game bridge
 
