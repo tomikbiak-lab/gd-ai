@@ -1,0 +1,3 @@
+# Versions used for the verified Python 3.12 CPU environment.
+numpy==2.5.4
+torch==2.14.1

@@ -1,0 +1,46 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Training data, checkpoints, replays and reports
+brain/brains/
+brain/brains2/
+tests/results/
+*.pt
+*.pth
+*.npz
+*.jsonl
+*.log
+backups/
+
+# Generated CMake / Geode output and third-party downloads
+build/
+build-*/
+_deps/
+.cache/
+*.geode
+*.dll
+*.exe
+*.pdb
+*.obj
+*.lib
+*.zip
+tools/
+
+# Local configuration and credentials
+.env
+.env.*
+*.pem
+*.key
+CMakeUserPresets.json
+.idea/
+.vscode/
+.vs/
+.DS_Store
+Thumbs.db
