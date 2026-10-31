@@ -72,8 +72,13 @@ def main():
         (tmp / "brain").mkdir()
         conn_server = brain2.Connection(0)
         port = conn_server.server.getsockname()[1]
-        sim = subprocess.Popen([sys.executable, str(HERE / "sim.py"), str(port), str(seconds), str(tmp / "trace.jsonl")],
-                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        # The parent serves TCP until the simulator disconnects. A long simulator
+        # summary can fill a PIPE before that disconnect and deadlock both sides.
+        # Capture to disk so output size cannot block the protocol loop.
+        output_path = tmp / "sim-output.log"
+        with output_path.open("w", encoding="utf-8") as output:
+            sim = subprocess.Popen([sys.executable, str(HERE / "sim.py"), str(port), str(seconds), str(tmp / "trace.jsonl")],
+                                   stdout=output, stderr=subprocess.STDOUT, text=True)
         conn, _ = conn_server.server.accept()
         try:
             conn_server.handle(conn, session)
@@ -81,7 +86,9 @@ def main():
             pass
         finally:
             conn.close()
-        sim_out = sim.communicate()[0]
+        sim.wait(timeout=30)
+        sim_out = output_path.read_text(encoding="utf-8")
+        assert sim.returncode == 0, f"simulator exited with {sim.returncode}: {sim_out[-2000:]}"
         played = [json.loads(line) for line in (tmp / "trace.jsonl").read_text(encoding="utf-8").splitlines()]
 
     assert len(played) == len(session.attempts), f"{len(played)} attempts played, {len(session.attempts)} recorded"

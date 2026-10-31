@@ -222,6 +222,9 @@ def main():
         play(conn, read, started + float(sys.argv[2]), started, stats, trace)
     except (ConnectionError, OSError):
         print("The brain stopped.", flush=True)
+    # makefile() retains the socket until the file is closed too. Disconnect
+    # before writing a potentially large summary to the parent process.
+    f.close()
     conn.close()
     if trace:
         trace.close()
