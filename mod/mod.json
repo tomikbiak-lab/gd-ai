@@ -1,0 +1,70 @@
+{
+    "geode": "5.11.2",
+    "gd": {
+        "win": "2.2081"
+    },
+    "id": "takto.gd-ai",
+    "name": "GD AI",
+    "version": "v1.0.0",
+    "developer": "takto",
+    "description": "An experimental Geometry Dash learning agent: a Geode bridge and a PyTorch PPO brain.",
+    "settings": {
+        "enabled": {
+            "type": "bool",
+            "name": "AI enabled",
+            "description": "While brain2.py is running, the AI takes control in levels.",
+            "default": true
+        },
+        "speed": {
+            "type": "float",
+            "name": "Game speed",
+            "description": "1 = normal speed. Higher = faster learning (2 = twice as fast). The AI learns exactly the same at any speed. If your PC can't keep up, the game just runs as fast as it can and FPS drops.",
+            "default": 1.0,
+            "min": 0.25,
+            "max": 32.0,
+            "control": {
+                "slider-step": 0.5
+            }
+        },
+        "normal-death": {
+            "type": "bool",
+            "name": "Normal death and restart",
+            "description": "The AI explodes and the level restarts like a normal attempt. Turn off for faster learning (instant restart).",
+            "default": true
+        },
+        "allow-practice": {
+            "type": "bool",
+            "name": "Let the AI use practice mode",
+            "description": "The AI's coach switches to practice mode by itself to train hard parts from a checkpoint. Turn off if it causes problems; the AI then only does full runs.",
+            "default": true
+        },
+        "autoplay-level": {
+            "type": "int",
+            "name": "Auto-open main level",
+            "description": "For recording: opens this main level (1 = Stereo Madness, 2 = Back on Track...) right after the game starts. 0 = off.",
+            "default": 0,
+            "min": 0,
+            "max": 22
+        },
+        "autoplay-replay": {
+            "type": "bool",
+            "name": "Auto-open plays the AI's replay",
+            "description": "With 'Auto-open main level', play the AI's saved run of that level instead of letting it train. Handy for recording.",
+            "default": false
+        },
+        "port": {
+            "type": "int",
+            "name": "Port",
+            "description": "Port that brain.py listens on.",
+            "default": 5555,
+            "min": 1024,
+            "max": 65535
+        },
+        "show-ai-vision": {
+            "type": "bool",
+            "name": "Show AI vision",
+            "description": "Draws the grid the AI sees in front of the player (red = spike, green = block, yellow = orb/pad, blue = portal). The AI sees it either way.",
+            "default": false
+        }
+    }
+}
